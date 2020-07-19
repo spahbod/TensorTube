@@ -3,7 +3,7 @@ package pl.tube.tensortube.view;
 import lombok.Data;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.file.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class FileUploadView {
             String fileNameWithPrefix = utilityFile.getFileNameWithDatePrefix(file.getFileName());
 
             File targetFile = new File(path + fileNameWithPrefix);
-            FileUtils.copyInputStreamToFile(file.getInputstream(), targetFile);
+            FileUtils.copyInputStreamToFile(file.getInputStream(), targetFile);
 
             utilityFile.addFileToProcessToRepository(file.getFileName(), targetFile.getPath(), userManager.getUserId());
 

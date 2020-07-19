@@ -49,7 +49,7 @@ public class ProcessFile {
         File originalFile = FileUtils.getFile(fileToProcess.getFullPath());
 
         FileUtils.copyInputStreamToFile(getInputStreamFromOriginalFile(originalFile), targetFile);
-        utilityFile.addProcessedFileToRepository(targetFile.getName(), targetFile.getPath(), fileToProcess.getUserId());
+        utilityFile.addProcessedFileToRepository(targetFile.getName(), targetFile.getPath(), fileToProcess.getUserId(), originalFile.length());
 
         return originalFile;
     }

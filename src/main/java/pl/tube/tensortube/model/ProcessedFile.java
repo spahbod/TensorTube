@@ -21,13 +21,16 @@ public class ProcessedFile {
     private String fullPath;
     @Column
     private String userId;
+    @Column
+    private long size;
 
     public ProcessedFile() {}
 
-    public ProcessedFile(String fileName, String fullPath, String userId) {
+    public ProcessedFile(String fileName, String fullPath, String userId, long size) {
         this.created = new Date();
         this.fileName = fileName;
         this.fullPath = fullPath;
         this.userId = userId;
+        this.size = size;
     }
 }

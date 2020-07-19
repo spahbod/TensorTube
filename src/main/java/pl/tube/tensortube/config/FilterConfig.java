@@ -18,21 +18,4 @@ public class FilterConfig {
         registration.addUrlPatterns("/secured/*");
         return registration;
     }
-
-    @Bean
-    public FilterRegistrationBean someFilterRegistration(Filter fileUploadFilter) {
-
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(fileUploadFilter);
-        registration.addUrlPatterns("/*");
-        registration.addInitParameter("thresholdSize", "2147483647");
-        registration.setName("PrimeFaces FileUpload Filter");
-        registration.setOrder(1);
-        return registration;
-    }
-
-    @Bean
-    public Filter fileUploadFilter() {
-        return new FileUploadFilter();
-    }
 }

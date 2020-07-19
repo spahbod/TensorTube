@@ -21,8 +21,8 @@ public class UtilityFile {
         fileToProcessRepository.save(fileToProcess);
     }
 
-    public void addProcessedFileToRepository(String fileName, String fullPath, String userId) {
-        ProcessedFile file = new ProcessedFile(fileName, fullPath, userId);
+    public void addProcessedFileToRepository(String fileName, String fullPath, String userId, long size) {
+        ProcessedFile file = new ProcessedFile(fileName, fullPath, userId, size);
         processedFileRepository.save(file);
     }
 
