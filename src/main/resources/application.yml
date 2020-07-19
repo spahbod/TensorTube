@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost;databaseName=TensorTubeDB
+    username: admin
+    password: admin
+    initialization-mode: always
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+home.path: D:\\home\\
+catalog:
+  temp: temp\\
+  main: main\\
+
+process.file.cron: 0/5 * * * * ?
