@@ -2,7 +2,6 @@ package pl.tube.tensortube.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import pl.tube.tensortube.controller.UserManager;
 
 import javax.servlet.*;
