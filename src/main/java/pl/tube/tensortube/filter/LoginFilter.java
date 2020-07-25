@@ -27,16 +27,13 @@ public class LoginFilter implements Filter {
 
         if (userManager != null) {
             if (userManager.isLoggedIn()) {
-                log.debug("user is logged in");
                 // user is logged in, continue request
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                log.debug("user is not logged in");
                 // user is not logged in, redirect to login page
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + LOGIN_PAGE);
             }
         } else {
-            log.debug("userManager not found");
             // user is not logged in, redirect to login page
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + LOGIN_PAGE);
         }

@@ -9,20 +9,19 @@ import javax.inject.Named;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.tube.tensortube.model.Car;
-import pl.tube.tensortube.repository.CarRepository;
+import pl.tube.tensortube.model.ProcessedFile;
+import pl.tube.tensortube.repository.ProcessedFileRepository;
 
 @Named
 @SessionScoped
 @Data
 //https://stackoverflow.com/questions/21517327/update-primefaces-datatable-with-new-rows-adding-dynamically
-public class CarsView implements Serializable {
+public class ProcessedFileView implements Serializable {
 
   @Autowired
-  private CarRepository carRepository;
+  private ProcessedFileRepository processedFileRepository;
 
-  private List<Car> cars;
-
-  @PostConstruct
-  public void init() { cars = carRepository.findAll(); }
+  public List<ProcessedFile> getProcessedFiles() {
+    return processedFileRepository.findAll();
+  }
 }

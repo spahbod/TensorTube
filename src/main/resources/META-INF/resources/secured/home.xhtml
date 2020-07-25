@@ -4,7 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
@@ -17,66 +16,60 @@
         <p:panel header="Home">
             <p>
                 <h:outputText id="welcome-message"
-                              value="Welcome, #{userManager.currentUser.getName()}!" />
+                              value="Welcome, #{userManager.currentUser.getName()}!"/>
             </p>
 
-            <p:commandButton value="Logout" action="#{userManager.logout()}" />
+            <p:commandButton value="Logout" action="#{userManager.logout()}"/>
         </p:panel>
     </h:form>
 
-    <ui:include src="/WEB-INF/template/links.xhtml" />
+    <ui:include src="/WEB-INF/template/links.xhtml"/>
 
-    <p:dataTable var="car" value="#{carsView.cars}">
-        <p:column headerText="Id">
-            <h:outputText value="#{car.id}"/>
-        </p:column>
-
-        <p:column headerText="Year">
-            <h:outputText value="#{car.year}"/>
-        </p:column>
-
-        <p:column headerText="Brand">
-            <h:outputText value="#{car.brand}"/>
-        </p:column>
-
-        <p:column headerText="Color">
-            <h:outputText value="#{car.color}"/>
-        </p:column>
-    </p:dataTable>
-
-
+    <br/>
     <h:form>
-        <p:panel id="savecar" header="Save car" style="margin-bottom:10px;">
+        <p:panel header="ProcessedFiles">
+            <p:dataTable var="processedFile" value="#{processedFileView.getProcessedFiles()}"
+                         id="dataTableProcessedFiles">
+                <p:column headerText="Id">
+                    <h:outputText value="#{processedFile.id}"/>
+                </p:column>
 
-            <h:panelGrid columns="3">
+                <p:column headerText="Created">
+                    <h:outputText value="#{processedFile.created}"/>
+                </p:column>
 
-                <h:outputLabel for="Year" value="Year :"/>
-                <p:inputText id="Year" value="#{saveCarView.year}" label="Year">
-                    <f:validateLength minimum="4"/>
-                </p:inputText>
-                <h:outputText value=""/>
+                <p:column headerText="FileName">
+                    <h:outputText value="#{processedFile.fileName}"/>
+                </p:column>
 
-                <h:outputLabel for="brand" value="Brand :"/>
-                <p:inputText id="brand" value="#{saveCarView.brand}" label="Brand"/>
-                <h:outputText value=""/>
+                <p:column headerText="FullPath">
+                    <h:outputText value="#{processedFile.fullPath}"/>
+                </p:column>
 
-                <h:outputLabel for="color" value="Color :"/>
-                <p:inputText id="color" value="#{saveCarView.color}" label="Color"/>
-                <h:outputText value=""/>
+                <p:column headerText="UserId">
+                    <h:outputText value="#{processedFile.userId}"/>
+                </p:column>
 
-                <center>
-                    <p:commandButton ajax="false" value="Save" icon="ui-icon-disk" action="#{saveCarView.saveCar}"/>
-                </center>
-            </h:panelGrid>
+                <p:column headerText="Size">
+                    <h:outputText value="#{processedFile.size}"/>
+                </p:column>
+            </p:dataTable>
+            <p:commandButton id="refreshId" title="Refresh" update="dataTableProcessedFiles"/>
         </p:panel>
     </h:form>
-
-    <p:growl id="messages" showDetail="true"/>
+    
+    <br/>
     <h:form enctype="multipart/form-data">
-        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true" sizeLimit="2147483647" />
+        <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
         <br/>
         <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.upload}" disabled="false"/>
     </h:form>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+setInterval(function(){
+document.querySelector('[id="j_idt11:refreshId"]').click();
+},10000);
+</script>
 </h:body>
 </html>

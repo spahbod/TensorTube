@@ -8,7 +8,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
     database-platform: org.hibernate.dialect.SQLServerDialect
-    show-sql: true
+    show-sql: false
 
 # Max file size.
 spring.servlet.multipart.max-file-size: 5GB
@@ -19,5 +19,8 @@ home.path: D:\\home\\
 catalog:
   temp: temp\\
   main: main\\
+  video: video\\
 
 process.file.cron: 0/5 * * * * ?
+thread.pool.size: 10
+process.file.time.frame: 5

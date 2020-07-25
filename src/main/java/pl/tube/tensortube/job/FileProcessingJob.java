@@ -16,17 +16,17 @@ public class FileProcessingJob implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        log.info("START FileProcessingJob");
         if (lock.tryLock()) {
             try {
+                log.info("START FileProcessingJob");
                 ProcessFile processFile = (ProcessFile) jobExecutionContext.getJobDetail().getJobDataMap().get("processFile");
                 processFile.processFile();
             } catch (Exception e) {
                 log.error("FileProcessingJob -> execute", e);
             } finally {
                 lock.unlock();
+                log.info("STOP FileProcessingJob");
             }
         }
-        log.info("STOP FileProcessingJob");
     }
 }
