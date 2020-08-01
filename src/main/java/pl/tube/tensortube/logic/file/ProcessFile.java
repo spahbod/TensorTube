@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.bytedeco.javacv.FrameGrabber;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import pl.tube.tensortube.logic.image.ImageProcess;
 import pl.tube.tensortube.logic.utility.UtilityFile;
 import pl.tube.tensortube.logic.video.VideoProcess;
 import pl.tube.tensortube.model.FileToProcess;
+import pl.tube.tensortube.model.Tag;
 import pl.tube.tensortube.repository.FileToProcessRepository;
 
 @Component
@@ -39,7 +41,7 @@ public class ProcessFile {
     private ImageProcess imageProcess;
 
 
-    public void processFile() throws IOException {
+    public void processFile() throws IOException, ExecutionException, InterruptedException {
         FileToProcess fileToProcess = fileToProcessRepository.findFirstByOrderByIdAsc();
         if(fileToProcess != null) {
             log.info("ProcessFile -> fileToProcess " + fileToProcess.getFileName());
@@ -47,16 +49,16 @@ public class ProcessFile {
             //tutaj będzie analiza AI
             File originalFile = FileUtils.getFile(fileToProcess.getFullPath());
             List<Path> paths = videoProcess.getVideoFrames(originalFile);
-            imageProcess.processImages(paths);
+            List<Tag> tags = imageProcess.processImages(paths);
 
-            File file = addFileToRepository(fileToProcess, originalFile);
+            File file = addFileToRepository(fileToProcess, originalFile, tags);
 
             FileUtils.deleteQuietly(file);
             fileToProcessRepository.delete(fileToProcess);
         }
     }
 
-    private File addFileToRepository(FileToProcess fileToProcess,  File originalFile) throws IOException {
+    private File addFileToRepository(FileToProcess fileToProcess,  File originalFile, List<Tag> tags) throws IOException {
         log.info("ProcessFile -> " + originalFile.getName());
 
         String fileNameWithPrefix = utilityFile.getFileNameWithDatePrefix(fileToProcess.getFileName());
@@ -64,7 +66,7 @@ public class ProcessFile {
         File targetFile = new File(path + fileNameWithPrefix);
 
         FileUtils.copyInputStreamToFile(getInputStreamFromOriginalFile(originalFile), targetFile);
-        utilityFile.addProcessedFileToRepository(targetFile.getName(), targetFile.getPath(), fileToProcess.getUserId(), originalFile.length());
+        utilityFile.addProcessedFileToRepository(targetFile.getName(), targetFile.getPath(), fileToProcess.getUserId(), originalFile.length(), tags);
 
         return originalFile;
     }

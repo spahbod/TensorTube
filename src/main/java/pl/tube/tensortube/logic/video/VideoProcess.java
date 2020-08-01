@@ -28,7 +28,7 @@ public class VideoProcess {
     @Value("${process.file.time.frame}")
     private Integer timeFrame;
 
-    public List<Path>  getVideoFrames(File originalFile) throws IOException {
+    public List<Path> getVideoFrames(File originalFile) throws IOException {
         log.info("VideoProcess -> START ");
         long startTime = System.currentTimeMillis();
 

@@ -31,14 +31,14 @@
             <p:dataTable var="processedFile" value="#{processedFileView.getProcessedFiles()}"
                          id="dataTableProcessedFiles">
                 <p:column headerText="Id">
-                    <h:outputText value="#{processedFile.id}"/>
+                    <h:outputText value="#{processedFile.processedFileId}"/>
                 </p:column>
 
                 <p:column headerText="Created">
                     <h:outputText value="#{processedFile.created}"/>
                 </p:column>
 
-                <p:column headerText="FileName">
+                <p:column headerText="FileName">s
                     <h:outputText value="#{processedFile.fileName}"/>
                 </p:column>
 
@@ -57,7 +57,7 @@
             <p:commandButton id="refreshId" title="Refresh" update="dataTableProcessedFiles"/>
         </p:panel>
     </h:form>
-    
+
     <br/>
     <h:form enctype="multipart/form-data">
         <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
@@ -67,9 +67,11 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+var refreshButton = document.querySelector('[id="j_idt11:refreshId"]');
+$(refreshButton).hide();
 setInterval(function(){
-document.querySelector('[id="j_idt11:refreshId"]').click();
-},10000);
+$(refreshButton).click();
+}, 5000);
 </script>
 </h:body>
 </html>

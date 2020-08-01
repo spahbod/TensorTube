@@ -103,6 +103,11 @@
             <artifactId>ffmpeg-platform</artifactId>
             <version>3.4.2-1.4.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.tensorflow</groupId>
+            <artifactId>tensorflow</artifactId>
+            <version>1.1.0-rc2</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

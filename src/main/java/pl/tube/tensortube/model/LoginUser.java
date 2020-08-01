@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity(name = "LoginUser")
 @Data
 public class LoginUser {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)

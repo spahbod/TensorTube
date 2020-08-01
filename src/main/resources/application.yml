@@ -20,7 +20,12 @@ catalog:
   temp: temp\\
   main: main\\
   video: video\\
+  tensor: tensor\\
+
+pb.file: tensorflow_inception_graph.pb
+labels.file: labels.txt
 
 process.file.cron: 0/5 * * * * ?
 thread.pool.size: 10
+image.thread.pool.size: 5
 process.file.time.frame: 5
